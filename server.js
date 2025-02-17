@@ -31,6 +31,11 @@ app.get('/', async (req, res) => {
     res.render('index.ejs');
 });
 
+app.get('/planets/new', (req, res) => {
+    res.render('planets/new.ejs');
+});
+
+
 app.get('/planets', async (req, res) => {
     const allPlanets = await Planet.find();
     res.render('planets/index.ejs', { planets: allPlanets});
@@ -62,8 +67,8 @@ app.post('/planets', async (req, res) => {
     res.redirect('/planets');
   });
 
-  app.get('/planets/:plsnetId/edit', async (req, res) => {
-    const foundPlanet = await Planet.findById(req.params.plsnetId);
+  app.get('/planets/:planetId/edit', async (req, res) => {
+    const foundPlanet = await Planet.findById(req.params.planetId);
     res.render('planets/edit.ejs', {
         planet: foundPlanet,
     });
@@ -89,9 +94,6 @@ app.post('/planets', async (req, res) => {
 
 
 
-app.get('/planets/new', (req, res) => {
-    res.render('planets/new.ejs');
-});
 
 
 
