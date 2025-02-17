@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register a Planet</title>
+</head>
+<body>
+    <h1>Register a New Planet</h1>
+    <form action="/planets" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="type">Type:</label>
+        <select id="type" name="type" required>
+            <option value="terrestrial">Terrestrial</option>
+            <option value="gas giant">Gas Giant</option>
+            <option value="ice giant">Ice Giant</option>
+            <option value="dwarf">Dwarf Planet</option>
+        </select>
+
+        <label for="diameter">Diameter (km):</label>
+        <input type="number" id="diameter" name="diameter" required />
+
+        <label for="distanceFromSun">Distance from Sun (million km):</label>
+        <input type="number" id="distanceFromSun" name="distanceFromSun" required />
+
+        <label for="numberOfMoons">Number of Moons:</label>
+        <input type="number" id="numberOfMoons" name="numberOfMoons" value="0" />
+
+        <label for="hasRings">Has Rings:</label>
+        <input type="checkbox" id="hasRings" name="hasRings" />
+
+        <label for="surfaceTemperature">Surface Temperature (°C):</label>
+        <input type="number" id="surfaceTemperature" name="surfaceTemperature" />
+
+        <button type="submit">Add Planet</button>
+    </form>
+</body>
+</html>
