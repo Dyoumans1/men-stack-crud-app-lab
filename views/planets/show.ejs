@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title><%= planet.name %></title>
+</head>
+<body>
+    <h1><%= planet.name %></h1>
+    <a href="/planets/<%= planet._id %>/edit">Edit Planet</a>
+    <a href="/planets/">Back to Planets</a>
+        <p><strong>Type:</strong> <%= planet.type %></p>
+        <p><strong>Diameter:</strong> <%= planet.diameter.toLocaleString() %> km</p>
+        <p><strong>Distance from Sun:</strong> <%= planet.distanceFromSun.toLocaleString() %> million km</p>
+        <p><strong>Number of Moons:</strong> <%= planet.numberOfMoons %></p>
+        <p><strong>Has Rings:</strong> <%= planet.hasRings ? 'Yes' : 'No' %></p>
+        <p><strong>Surface Temperature:</strong> <%= planet.surfaceTemperature %>°C</p>
+    <form action="/planets/<%= planet._id %>?_method=DELETE" method="POST" style="display: inline;">
+        <button type="submit">Delete Planet <%= planet.name %></button>
+    </form>
+</body>
+</html>

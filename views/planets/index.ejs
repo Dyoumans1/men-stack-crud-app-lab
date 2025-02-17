@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>Planet Index</title>
 </head>
 <body>
     <h1>All Planets</h1>
+    <a href="/">Back to Home Page</a>
     <a href="/planets/new">Add New Planet</a>
     <ul>
         <% planets.forEach(planet => { %>
-            <li><a href="#"><%= planet.name %></a></li>
+            <li><a href="/planets/<%= planet._id %>"><%= planet.name %></a></li>
        <% }); %>
     </ul>
 </body>

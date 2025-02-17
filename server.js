@@ -4,6 +4,10 @@ dotenv.config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const methodOverride = require("method-override");
+const morgan = require("morgan");
+
+const path = require("path");
 
 const app = express();
 
@@ -16,8 +20,10 @@ mongoose.connection.on("connected", () => {
 const Planet = require('./models/planet.js');
 
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"));
+app.use(morgan("dev")); 
 
-
+app.use(express.static(path.join(__dirname, "public")));
 
 
 //GET//
@@ -30,7 +36,12 @@ app.get('/planets', async (req, res) => {
     res.render('planets/index.ejs', { planets: allPlanets});
 });
 
-app.post("/planets", async (req, res) => {
+app.get('/planets/:planetId', async (req, res) => {
+    const foundPlanet = await Planet.findById(req.params.planetId);
+    res.render("planets/show.ejs", { planet: foundPlanet });
+  });
+
+app.post('/planets', async (req, res) => {
     if (req.body.hasRings === "on") {
       req.body.hasRings = true;
     } else {
@@ -43,7 +54,35 @@ app.post("/planets", async (req, res) => {
     req.body.surfaceTemperature = Number(req.body.surfaceTemperature);
     
     await Planet.create(req.body);
-    res.redirect("/planets");
+    res.redirect('/planets');
+  });
+
+  app.delete('/planets/:planetId', async (req, res) => {
+    await Planet.findByIdAndDelete(req.params.planetId);
+    res.redirect('/planets');
+  });
+
+  app.get('/planets/:plsnetId/edit', async (req, res) => {
+    const foundPlanet = await Planet.findById(req.params.plsnetId);
+    res.render('planets/edit.ejs', {
+        planet: foundPlanet,
+    });
+  });
+
+  app.put("/planets/:planetId", async (req, res) => {
+    if (req.body.hasRings === "on") {
+      req.body.hasRings = true;
+    } else {
+      req.body.hasRings = false;
+    }
+  
+    req.body.diameter = Number(req.body.diameter);
+    req.body.distanceFromSun = Number(req.body.distanceFromSun);
+    req.body.numberOfMoons = Number(req.body.numberOfMoons);
+    req.body.surfaceTemperature = Number(req.body.surfaceTemperature);
+  
+    await Planet.findByIdAndUpdate(req.params.planetId, req.body);
+    res.redirect(`/planets/${req.params.planetId}`);
   });
 
 

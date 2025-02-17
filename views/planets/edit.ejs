@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit <%= planet.name %></h1>
+    <form action="/planets/<%=planet._id%>?_method=PUT" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="<%= planet.name %>" />
+
+        <label for="type">Type:</label>
+        <select name="type">
+            <option value="terrestrial" <% if (planet.type === 'terrestrial') { %>selected<% } %>>Terrestrial</option>
+            <option value="gas giant" <% if (planet.type === 'gas giant') { %>selected<% } %>>Gas Giant</option>
+            <option value="ice giant" <% if (planet.type === 'ice giant') { %>selected<% } %>>Ice Giant</option>
+            <option value="dwarf" <% if (planet.type === 'dwarf') { %>selected<% } %>>Dwarf Planet</option>
+        </select>
+
+        <label for="diameter">Diameter (km):</label>
+        <input type="number" name="diameter" value="<%= planet.diameter %>" />
+
+        <label for="distanceFromSun">Distance from Sun (million km):</label>
+        <input type="number" name="distanceFromSun" value="<%= planet.distanceFromSun %>" />
+
+        <label for="numberOfMoons">Number of Moons:</label>
+        <input type="number" name="numberOfMoons" value="<%= planet.numberOfMoons %>" />
+
+        <label for="hasRings">Has Rings?</label>
+        <input type="checkbox" name="hasRings" <% if (planet.hasRings) { %>checked<% } %> />
+
+        <label for="surfaceTemperature">Surface Temperature (°C):</label>
+        <input type="number" name="surfaceTemperature" value="<%= planet.surfaceTemperature %>" />
+
+        <button type="submit">Update Planet</button>
+    </form>
+    <a href="/planets">Back to Planets</a>
+</body>
+</html>
